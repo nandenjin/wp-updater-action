@@ -73,7 +73,7 @@ import { WPReleaseAPIResponse } from './types'
 
         await exec(`git config --global user.email "robot@nandenjin.com"`)
         await exec(`git config --global user.name "WP Updater Actions"`)
-        await exec(`git branch ${branchName}`)
+        await exec(`git switch -c ${branchName}`)
         await exec(`git add .`)
         await exec(`git commit -m "Upgrade WordPress to ${latestVersion}"`)
         await exec(`git push`)
