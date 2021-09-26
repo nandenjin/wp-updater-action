@@ -13585,7 +13585,7 @@ var axios_1 = __importDefault(__nccwpck_require__(6545));
                 core.info("Latest core version: " + latestVersion_1);
                 getLatestURL_1 = function (ext) { return offer_1.download.replace(/zip$/, ext); };
                 _loop_1 = function (target) {
-                    var task, octokit, branchName;
+                    var task, octokit, branchName, e_1;
                     return __generator(this, function (_b) {
                         switch (_b.label) {
                             case 0:
@@ -13631,9 +13631,9 @@ var axios_1 = __importDefault(__nccwpck_require__(6545));
                                 tasks.push(task());
                                 return [4 /*yield*/, (0, lib_1.isRepoClean)()];
                             case 1:
-                                if (!!(_b.sent())) return [3 /*break*/, 9];
+                                if (!!(_b.sent())) return [3 /*break*/, 13];
                                 octokit = (0, github_1.getOctokit)(token);
-                                branchName = "upgrade-wp-" + latestVersion_1 + "-" + Math.floor(Math.random() * 10000);
+                                branchName = "upgrade-wp/wp-core-" + latestVersion_1;
                                 return [4 /*yield*/, (0, exec_1.exec)("git config --global user.email \"robot@nandenjin.com\"")];
                             case 2:
                                 _b.sent();
@@ -13649,15 +13649,25 @@ var axios_1 = __importDefault(__nccwpck_require__(6545));
                                 return [4 /*yield*/, (0, exec_1.exec)("git commit -m \"Upgrade WordPress to " + latestVersion_1 + "\"")];
                             case 6:
                                 _b.sent();
-                                return [4 /*yield*/, (0, exec_1.exec)("git push -u origin " + branchName)];
+                                return [4 /*yield*/, (0, exec_1.exec)("git push -u origin " + branchName + " -f")];
                             case 7:
                                 _b.sent();
-                                octokit.rest.pulls.create(__assign(__assign({}, github_1.context.repo), { title: "Upgrade WordPress to " + latestVersion_1, base: github_1.context.ref, head: "refs/heads/" + branchName }));
-                                return [4 /*yield*/, (0, exec_1.exec)("git checkout " + github_1.context.ref)];
+                                _b.label = 8;
                             case 8:
+                                _b.trys.push([8, 10, , 11]);
+                                return [4 /*yield*/, octokit.rest.pulls.create(__assign(__assign({}, github_1.context.repo), { title: "Upgrade WordPress to " + latestVersion_1, base: github_1.context.ref, head: "refs/heads/" + branchName }))];
+                            case 9:
                                 _b.sent();
-                                _b.label = 9;
-                            case 9: return [2 /*return*/];
+                                return [3 /*break*/, 11];
+                            case 10:
+                                e_1 = _b.sent();
+                                core.error(e_1.toString());
+                                return [3 /*break*/, 11];
+                            case 11: return [4 /*yield*/, (0, exec_1.exec)("git checkout " + github_1.context.ref)];
+                            case 12:
+                                _b.sent();
+                                _b.label = 13;
+                            case 13: return [2 /*return*/];
                         }
                     });
                 };
