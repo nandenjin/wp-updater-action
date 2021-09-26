@@ -72,7 +72,7 @@ import { WPReleaseAPIResponse } from './types'
         )}`
 
         await exec(
-          `git config user.email --global "robot@nandenjin.com" && git config --global user.name "WP Updater Actions"`
+          `git config --global user.email "robot@nandenjin.com" && git config --global user.name "WP Updater Actions"`
         )
         await exec(`git branch ${branchName}`)
         await exec(`git add .`)
