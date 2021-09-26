@@ -9,6 +9,8 @@ import { WPReleaseAPIResponse } from './types'
 
   const tasks: Promise<unknown>[] = []
 
+  core.info(process.cwd())
+
   if (checkCore) {
     const testPattern =
       /https:\/\/downloads\.wordpress.org\/release(?:\/[^/]+)?\/wordpress-([0-9.]+)\.(zip|tar\.gz)/gi
