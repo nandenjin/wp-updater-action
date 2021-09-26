@@ -12,7 +12,7 @@ import { WPReleaseAPIResponse } from './types'
 
   // Init git client
   await exec(`git config --global user.email "robot@nandenjin.com"`)
-  await exec(`git config --global user.name "WP Updater Actions"`)
+  await exec(`git config --global user.name "wp-updater-actions"`)
 
   const tasks: Promise<unknown>[] = []
 
