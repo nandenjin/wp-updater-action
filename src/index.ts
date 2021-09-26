@@ -66,10 +66,14 @@ import { WPReleaseAPIResponse } from './types'
 
       if (!(await isRepoClean())) {
         const octokit = getOctokit(token)
+
         const branchName = `upgrade-wp-${latestVersion}-${Math.floor(
           Math.random() * 10000
         )}`
 
+        await exec(
+          `git config user.email "robot@nandenjin.com" && git config user.name "WP Updater Actions"`
+        )
         await exec(`git branch ${branchName}`)
         await exec(`git add .`)
         await exec(`git commit -m "Upgrade WordPress to ${latestVersion}"`)
