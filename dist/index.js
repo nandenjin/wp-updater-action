@@ -13631,24 +13631,27 @@ var axios_1 = __importDefault(__nccwpck_require__(6545));
                                 tasks.push(task());
                                 return [4 /*yield*/, (0, lib_1.isRepoClean)()];
                             case 1:
-                                if (!!(_b.sent())) return [3 /*break*/, 6];
+                                if (!!(_b.sent())) return [3 /*break*/, 7];
                                 octokit = (0, github_1.getOctokit)(token);
                                 branchName = "upgrade-wp-" + latestVersion_1 + "-" + Math.floor(Math.random() * 10000);
-                                return [4 /*yield*/, (0, exec_1.exec)("git branch " + branchName)];
+                                return [4 /*yield*/, (0, exec_1.exec)("git config user.email \"robot@nandenjin.com\" && git config user.name \"WP Updater Actions\"")];
                             case 2:
                                 _b.sent();
-                                return [4 /*yield*/, (0, exec_1.exec)("git add .")];
+                                return [4 /*yield*/, (0, exec_1.exec)("git branch " + branchName)];
                             case 3:
                                 _b.sent();
-                                return [4 /*yield*/, (0, exec_1.exec)("git commit -m \"Upgrade WordPress to " + latestVersion_1 + "\"")];
+                                return [4 /*yield*/, (0, exec_1.exec)("git add .")];
                             case 4:
+                                _b.sent();
+                                return [4 /*yield*/, (0, exec_1.exec)("git commit -m \"Upgrade WordPress to " + latestVersion_1 + "\"")];
+                            case 5:
                                 _b.sent();
                                 octokit.rest.pulls.create(__assign(__assign({}, github_1.context.repo), { title: "Upgrade WordPress to " + latestVersion_1, base: github_1.context.ref, head: branchName }));
                                 return [4 /*yield*/, (0, exec_1.exec)("git checkout " + github_1.context.ref)];
-                            case 5:
+                            case 6:
                                 _b.sent();
-                                _b.label = 6;
-                            case 6: return [2 /*return*/];
+                                _b.label = 7;
+                            case 7: return [2 /*return*/];
                         }
                     });
                 };
