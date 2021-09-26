@@ -1,15 +1,16 @@
 import { promises as fs } from 'fs'
 import * as core from '@actions/core'
+import { exec } from '@actions/exec'
+import { getOctokit, context } from '@actions/github'
 import { compareVersions, isRepoClean } from './lib'
 import axios from 'axios'
 import { WPReleaseAPIResponse } from './types'
 ;(async () => {
+  const token = core.getInput('github_token')
   const targets = core.getMultilineInput('targets', { required: true })
   const checkCore = core.getBooleanInput('check_core')
 
   const tasks: Promise<unknown>[] = []
-
-  core.info(process.cwd())
 
   if (checkCore) {
     const testPattern =
@@ -63,7 +64,25 @@ import { WPReleaseAPIResponse } from './types'
 
       tasks.push(task())
 
-      core.info((await isRepoClean()) ? 'Repo is clean' : 'Repo is dirty')
+      if (!(await isRepoClean())) {
+        const octokit = getOctokit(token)
+        const branchName = `upgrade-wp-${latestVersion}-${Math.floor(
+          Math.random() * 10000
+        )}`
+
+        await exec(`git branch ${branchName}`)
+        await exec(`git add .`)
+        await exec(`git commit -m "Upgrade WordPress to ${latestVersion}"`)
+
+        octokit.rest.pulls.create({
+          ...context.repo,
+          title: `Upgrade WordPress to ${latestVersion}`,
+          base: context.ref,
+          head: branchName,
+        })
+
+        await exec(`git checkout ${context.ref}`)
+      }
     }
   }
 

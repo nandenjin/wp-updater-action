@@ -1,6 +1,9 @@
 name: 'Hello World'
 description: 'Greet someone and record the time'
 inputs:
+  github_token:
+    description: 'secrets.GITHUB_TOKEN'
+    required: true
   targets:
     description: 'Path of files to check'
     required: true
