@@ -1,4 +1,7 @@
+import * as core from '@actions/core'
 import { exec } from '@actions/exec'
+import { getOctokit } from '@actions/github'
+import { Context } from '@actions/github/lib/context'
 
 /**
  * Convert version string to comparable number
@@ -33,4 +36,43 @@ export async function isRepoClean(): Promise<boolean> {
   })
 
   return output.trim().length === 0
+}
+
+export async function createPullByCurrentChanges({
+  branch,
+  message,
+  base,
+  title,
+  context,
+  octokit,
+}: {
+  branch: string
+  message: string
+  base: string
+  title: string
+  context: Context
+  octokit: ReturnType<typeof getOctokit>
+}): Promise<void> {
+  // Create (or overwrite) a new branch
+  await exec(`git switch -C ${branch}`)
+
+  // Commit the changes
+  await exec(`git add .`)
+  await exec(`git commit -m "${message.replace('"', '\\"')}"`)
+
+  // Push commits
+  await exec(`git push -u origin ${branch} -f`)
+  // Create a pull request
+  try {
+    await octokit.rest.pulls.create({
+      ...context.repo,
+      title,
+      base,
+      head: `refs/heads/${branch}`,
+      body: `[![Created by wp-updater-action](https://img.shields.io/badge/Created%20by-wp--updater--action-orange?style=flat-square)](https://github.com/nandenjin/wp-updater-action).`,
+    })
+  } catch (e) {
+    // If PR already exists, ignore
+    core.error((e as Error).toString())
+  }
 }

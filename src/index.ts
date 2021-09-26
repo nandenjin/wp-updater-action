@@ -2,7 +2,7 @@ import { promises as fs } from 'fs'
 import * as core from '@actions/core'
 import { exec } from '@actions/exec'
 import { getOctokit, context } from '@actions/github'
-import { compareVersions, isRepoClean } from './lib'
+import { compareVersions, createPullByCurrentChanges, isRepoClean } from './lib'
 import axios from 'axios'
 import { WPReleaseAPIResponse } from './types'
 ;(async () => {
@@ -10,14 +10,20 @@ import { WPReleaseAPIResponse } from './types'
   const targets = core.getMultilineInput('targets', { required: true })
   const checkCore = core.getBooleanInput('check_core')
 
+  // Init git client
+  await exec(`git config --global user.email "robot@nandenjin.com"`)
+  await exec(`git config --global user.name "WP Updater Actions"`)
+
   const tasks: Promise<unknown>[] = []
 
+  // Check core updates
   if (checkCore) {
     const testPattern =
       /https:\/\/downloads\.wordpress.org\/release(?:\/[^/]+)?\/wordpress-([0-9.]+)\.(zip|tar\.gz)/gi
 
     const locale = core.getInput('core_locale') || ''
 
+    // Acquire latest core version
     const { data: releases }: { data: WPReleaseAPIResponse } = await axios.get(
       'https://api.wordpress.org/core/version-check/1.7/',
       {
@@ -37,11 +43,13 @@ import { WPReleaseAPIResponse } from './types'
       // Read the contents of targets
       const task = async () => {
         const content = await fs.readFile(target, 'utf8')
+
+        // Search matching URL
         if (content.match(testPattern)) {
           const versionStr = RegExp.$1
           const ext = RegExp.$2
-
           switch (compareVersions(versionStr, latestVersion)) {
+            // If newer version is found, update the file
             case -1: {
               core.info(`${target}: ${versionStr} -> ${latestVersion}`)
               await fs.writeFile(
@@ -50,10 +58,12 @@ import { WPReleaseAPIResponse } from './types'
               )
               break
             }
+
             case 0: {
               core.info(`${target}: ${versionStr} [latest]`)
               break
             }
+
             case 1: {
               core.info(`${target}: ${versionStr} [newer?]`)
               break
@@ -64,32 +74,20 @@ import { WPReleaseAPIResponse } from './types'
 
       tasks.push(task())
 
+      // If somethings are changed, commit them
       if (!(await isRepoClean())) {
         const octokit = getOctokit(token)
 
-        const branchName = `upgrade-wp/wp-core-${latestVersion}`
+        await createPullByCurrentChanges({
+          branch: `upgrade-wp/wp-core-${latestVersion}`,
+          message: `chore: Upgrade WordPress core to ${latestVersion}`,
+          title: `Upgrade WordPress core to ${latestVersion}`,
+          base: context.ref,
+          context,
+          octokit,
+        })
 
-        await exec(`git config --global user.email "robot@nandenjin.com"`)
-        await exec(`git config --global user.name "WP Updater Actions"`)
-        await exec(`git switch -c ${branchName}`)
-        await exec(`git add .`)
-        await exec(`git commit -m "Upgrade WordPress to ${latestVersion}"`)
-        await exec(`git push -u origin ${branchName} -f`)
-
-        try {
-          await octokit.rest.pulls.create({
-            ...context.repo,
-            title: `Upgrade WordPress to ${latestVersion}`,
-            base: context.ref,
-            head: `refs/heads/${branchName}`,
-            body: `This automated PR upgrades Wordpress Core to ${latestVersion}.
-
-[![Created by wp-updater-action](https://img.shields.io/badge/Created%20by-wp--updater--action-orange?style=flat-square)](https://github.com/nandenjin/wp-updater-action).`,
-          })
-        } catch (e) {
-          core.error((e as Error).toString())
-        }
-
+        // Clean up
         await exec(`git checkout ${context.ref}`)
       }
     }
