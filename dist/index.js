@@ -13649,7 +13649,7 @@ var axios_1 = __importDefault(__nccwpck_require__(6545));
                                 return [4 /*yield*/, (0, exec_1.exec)("git commit -m \"Upgrade WordPress to " + latestVersion_1 + "\"")];
                             case 6:
                                 _b.sent();
-                                return [4 /*yield*/, (0, exec_1.exec)("git push")];
+                                return [4 /*yield*/, (0, exec_1.exec)("git push -u origin " + branchName)];
                             case 7:
                                 _b.sent();
                                 octokit.rest.pulls.create(__assign(__assign({}, github_1.context.repo), { title: "Upgrade WordPress to " + latestVersion_1, base: github_1.context.ref, head: "refs/heads/" + branchName }));
