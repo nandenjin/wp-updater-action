@@ -13631,27 +13631,30 @@ var axios_1 = __importDefault(__nccwpck_require__(6545));
                                 tasks.push(task());
                                 return [4 /*yield*/, (0, lib_1.isRepoClean)()];
                             case 1:
-                                if (!!(_b.sent())) return [3 /*break*/, 7];
+                                if (!!(_b.sent())) return [3 /*break*/, 8];
                                 octokit = (0, github_1.getOctokit)(token);
                                 branchName = "upgrade-wp-" + latestVersion_1 + "-" + Math.floor(Math.random() * 10000);
-                                return [4 /*yield*/, (0, exec_1.exec)("git config --global user.email \"robot@nandenjin.com\" && git config --global user.name \"WP Updater Actions\"")];
+                                return [4 /*yield*/, (0, exec_1.exec)("git config --global user.email \"robot@nandenjin.com\"")];
                             case 2:
                                 _b.sent();
-                                return [4 /*yield*/, (0, exec_1.exec)("git branch " + branchName)];
+                                return [4 /*yield*/, (0, exec_1.exec)("git config --global user.name \"WP Updater Actions\"")];
                             case 3:
                                 _b.sent();
-                                return [4 /*yield*/, (0, exec_1.exec)("git add .")];
+                                return [4 /*yield*/, (0, exec_1.exec)("git branch " + branchName)];
                             case 4:
                                 _b.sent();
-                                return [4 /*yield*/, (0, exec_1.exec)("git commit -m \"Upgrade WordPress to " + latestVersion_1 + "\"")];
+                                return [4 /*yield*/, (0, exec_1.exec)("git add .")];
                             case 5:
+                                _b.sent();
+                                return [4 /*yield*/, (0, exec_1.exec)("git commit -m \"Upgrade WordPress to " + latestVersion_1 + "\"")];
+                            case 6:
                                 _b.sent();
                                 octokit.rest.pulls.create(__assign(__assign({}, github_1.context.repo), { title: "Upgrade WordPress to " + latestVersion_1, base: github_1.context.ref, head: branchName }));
                                 return [4 /*yield*/, (0, exec_1.exec)("git checkout " + github_1.context.ref)];
-                            case 6:
+                            case 7:
                                 _b.sent();
-                                _b.label = 7;
-                            case 7: return [2 /*return*/];
+                                _b.label = 8;
+                            case 8: return [2 /*return*/];
                         }
                     });
                 };
