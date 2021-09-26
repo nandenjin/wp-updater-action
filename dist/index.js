@@ -13634,7 +13634,7 @@ var axios_1 = __importDefault(__nccwpck_require__(6545));
                                 if (!!(_b.sent())) return [3 /*break*/, 7];
                                 octokit = (0, github_1.getOctokit)(token);
                                 branchName = "upgrade-wp-" + latestVersion_1 + "-" + Math.floor(Math.random() * 10000);
-                                return [4 /*yield*/, (0, exec_1.exec)("git config user.email \"robot@nandenjin.com\" && git config user.name \"WP Updater Actions\"")];
+                                return [4 /*yield*/, (0, exec_1.exec)("git config user.email --global \"robot@nandenjin.com\" && git config --global user.name \"WP Updater Actions\"")];
                             case 2:
                                 _b.sent();
                                 return [4 /*yield*/, (0, exec_1.exec)("git branch " + branchName)];
