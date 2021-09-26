@@ -13640,7 +13640,7 @@ var axios_1 = __importDefault(__nccwpck_require__(6545));
                                 return [4 /*yield*/, (0, exec_1.exec)("git config --global user.name \"WP Updater Actions\"")];
                             case 3:
                                 _b.sent();
-                                return [4 /*yield*/, (0, exec_1.exec)("git branch " + branchName)];
+                                return [4 /*yield*/, (0, exec_1.exec)("git switch -c " + branchName)];
                             case 4:
                                 _b.sent();
                                 return [4 /*yield*/, (0, exec_1.exec)("git add .")];
