@@ -82,7 +82,7 @@ import { WPReleaseAPIResponse } from './types'
           ...context.repo,
           title: `Upgrade WordPress to ${latestVersion}`,
           base: context.ref,
-          head: branchName,
+          head: `refs/heads/${branchName}`,
         })
 
         await exec(`git checkout ${context.ref}`)
@@ -90,7 +90,7 @@ import { WPReleaseAPIResponse } from './types'
     }
   }
 
-  await Promise.all(tasks)
+  return Promise.all(tasks)
 })().catch(e => {
   core.setFailed(e)
 })
