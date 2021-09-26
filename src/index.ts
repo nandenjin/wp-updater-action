@@ -76,7 +76,7 @@ import { WPReleaseAPIResponse } from './types'
         await exec(`git switch -c ${branchName}`)
         await exec(`git add .`)
         await exec(`git commit -m "Upgrade WordPress to ${latestVersion}"`)
-        await exec(`git push`)
+        await exec(`git push -u origin ${branchName}`)
 
         octokit.rest.pulls.create({
           ...context.repo,
