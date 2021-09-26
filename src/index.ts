@@ -82,6 +82,9 @@ import { WPReleaseAPIResponse } from './types'
             title: `Upgrade WordPress to ${latestVersion}`,
             base: context.ref,
             head: `refs/heads/${branchName}`,
+            body: `This automated PR upgrades Wordpress Core to ${latestVersion}.
+
+[![Created by wp-updater-action](https://img.shields.io/badge/Created%20by-wp--updater--action-orange?style=flat-square)](https://github.com/nandenjin/wp-updater-action).`,
           })
         } catch (e) {
           core.error((e as Error).toString())
