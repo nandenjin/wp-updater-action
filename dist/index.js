@@ -13652,7 +13652,7 @@ var axios_1 = __importDefault(__nccwpck_require__(6545));
                                 return [4 /*yield*/, (0, exec_1.exec)("git push")];
                             case 7:
                                 _b.sent();
-                                octokit.rest.pulls.create(__assign(__assign({}, github_1.context.repo), { title: "Upgrade WordPress to " + latestVersion_1, base: github_1.context.ref, head: branchName }));
+                                octokit.rest.pulls.create(__assign(__assign({}, github_1.context.repo), { title: "Upgrade WordPress to " + latestVersion_1, base: github_1.context.ref, head: "refs/heads/" + branchName }));
                                 return [4 /*yield*/, (0, exec_1.exec)("git checkout " + github_1.context.ref)];
                             case 8:
                                 _b.sent();
@@ -13673,10 +13673,7 @@ var axios_1 = __importDefault(__nccwpck_require__(6545));
             case 4:
                 _i++;
                 return [3 /*break*/, 2];
-            case 5: return [4 /*yield*/, Promise.all(tasks)];
-            case 6:
-                _a.sent();
-                return [2 /*return*/];
+            case 5: return [2 /*return*/, Promise.all(tasks)];
         }
     });
 }); })().catch(function (e) {
