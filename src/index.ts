@@ -67,23 +67,25 @@ import { WPReleaseAPIResponse } from './types'
       if (!(await isRepoClean())) {
         const octokit = getOctokit(token)
 
-        const branchName = `upgrade-wp-${latestVersion}-${Math.floor(
-          Math.random() * 10000
-        )}`
+        const branchName = `upgrade-wp/wp-core-${latestVersion}`
 
         await exec(`git config --global user.email "robot@nandenjin.com"`)
         await exec(`git config --global user.name "WP Updater Actions"`)
         await exec(`git switch -c ${branchName}`)
         await exec(`git add .`)
         await exec(`git commit -m "Upgrade WordPress to ${latestVersion}"`)
-        await exec(`git push -u origin ${branchName}`)
+        await exec(`git push -u origin ${branchName} -f`)
 
-        octokit.rest.pulls.create({
-          ...context.repo,
-          title: `Upgrade WordPress to ${latestVersion}`,
-          base: context.ref,
-          head: `refs/heads/${branchName}`,
-        })
+        try {
+          await octokit.rest.pulls.create({
+            ...context.repo,
+            title: `Upgrade WordPress to ${latestVersion}`,
+            base: context.ref,
+            head: `refs/heads/${branchName}`,
+          })
+        } catch (e) {
+          core.error((e as Error).toString())
+        }
 
         await exec(`git checkout ${context.ref}`)
       }
