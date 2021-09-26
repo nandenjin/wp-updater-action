@@ -3,4 +3,5 @@ module.exports = {
     exec('npm run build')
     exec('git add dist')
   },
+  publishCommand: () => 'echo NOOP',
 }
