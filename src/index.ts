@@ -11,8 +11,10 @@ import { WPReleaseAPIResponse } from './types'
   const checkCore = core.getBooleanInput('check_core')
 
   // Init git client
-  await exec(`git config --global user.email "robot@nandenjin.com"`)
-  await exec(`git config --global user.name "wp-updater-actions"`)
+  await exec(
+    `git config --global user.email "github-actions[bot]@users.noreply.github.com"`
+  )
+  await exec(`git config --global user.name "github-actions[bot]"`)
 
   const tasks: Promise<unknown>[] = []
 
