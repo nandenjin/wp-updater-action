@@ -13485,17 +13485,6 @@ function wrappy (fn, cb) {
 
 "use strict";
 
-var __assign = (this && this.__assign) || function () {
-    __assign = Object.assign || function(t) {
-        for (var s, i = 1, n = arguments.length; i < n; i++) {
-            s = arguments[i];
-            for (var p in s) if (Object.prototype.hasOwnProperty.call(s, p))
-                t[p] = s[p];
-        }
-        return t;
-    };
-    return __assign.apply(this, arguments);
-};
 var __createBinding = (this && this.__createBinding) || (Object.create ? (function(o, m, k, k2) {
     if (k2 === undefined) k2 = k;
     Object.defineProperty(o, k2, { enumerable: true, get: function() { return m[k]; } });
@@ -13569,8 +13558,16 @@ var axios_1 = __importDefault(__nccwpck_require__(6545));
                 token = core.getInput('github_token');
                 targets = core.getMultilineInput('targets', { required: true });
                 checkCore = core.getBooleanInput('check_core');
+                // Init git client
+                return [4 /*yield*/, (0, exec_1.exec)("git config --global user.email \"robot@nandenjin.com\"")];
+            case 1:
+                // Init git client
+                _a.sent();
+                return [4 /*yield*/, (0, exec_1.exec)("git config --global user.name \"wp-updater-actions\"")];
+            case 2:
+                _a.sent();
                 tasks = [];
-                if (!checkCore) return [3 /*break*/, 5];
+                if (!checkCore) return [3 /*break*/, 7];
                 testPattern_1 = /https:\/\/downloads\.wordpress.org\/release(?:\/[^/]+)?\/wordpress-([0-9.]+)\.(zip|tar\.gz)/gi;
                 locale = core.getInput('core_locale') || '';
                 return [4 /*yield*/, axios_1.default.get('https://api.wordpress.org/core/version-check/1.7/', {
@@ -13578,14 +13575,14 @@ var axios_1 = __importDefault(__nccwpck_require__(6545));
                             locale: locale,
                         },
                     })];
-            case 1:
+            case 3:
                 releases = (_a.sent()).data;
                 offer_1 = releases.offers[0];
                 latestVersion_1 = offer_1.version;
                 core.info("Latest core version: " + latestVersion_1);
                 getLatestURL_1 = function (ext) { return offer_1.download.replace(/zip$/, ext); };
                 _loop_1 = function (target) {
-                    var task, octokit, branchName, e_1;
+                    var task, octokit;
                     return __generator(this, function (_b) {
                         switch (_b.label) {
                             case 0:
@@ -13593,7 +13590,9 @@ var axios_1 = __importDefault(__nccwpck_require__(6545));
                                     var content, versionStr, ext, _a;
                                     return __generator(this, function (_b) {
                                         switch (_b.label) {
-                                            case 0: return [4 /*yield*/, fs_1.promises.readFile(target, 'utf8')];
+                                            case 0: return [4 /*yield*/, fs_1.promises.readFile(target, 'utf8')
+                                                // Search matching URL
+                                            ];
                                             case 1:
                                                 content = _b.sent();
                                                 if (!content.match(testPattern_1)) return [3 /*break*/, 6];
@@ -13631,59 +13630,43 @@ var axios_1 = __importDefault(__nccwpck_require__(6545));
                                 tasks.push(task());
                                 return [4 /*yield*/, (0, lib_1.isRepoClean)()];
                             case 1:
-                                if (!!(_b.sent())) return [3 /*break*/, 13];
+                                if (!!(_b.sent())) return [3 /*break*/, 4];
                                 octokit = (0, github_1.getOctokit)(token);
-                                branchName = "upgrade-wp/wp-core-" + latestVersion_1;
-                                return [4 /*yield*/, (0, exec_1.exec)("git config --global user.email \"robot@nandenjin.com\"")];
+                                return [4 /*yield*/, (0, lib_1.createPullByCurrentChanges)({
+                                        branch: "upgrade-wp/wp-core-" + latestVersion_1,
+                                        message: "chore: Upgrade WordPress core to " + latestVersion_1,
+                                        title: "Upgrade WordPress core to " + latestVersion_1,
+                                        base: github_1.context.ref,
+                                        context: github_1.context,
+                                        octokit: octokit,
+                                    })
+                                    // Clean up
+                                ];
                             case 2:
                                 _b.sent();
-                                return [4 /*yield*/, (0, exec_1.exec)("git config --global user.name \"WP Updater Actions\"")];
+                                // Clean up
+                                return [4 /*yield*/, (0, exec_1.exec)("git checkout " + github_1.context.ref)];
                             case 3:
+                                // Clean up
                                 _b.sent();
-                                return [4 /*yield*/, (0, exec_1.exec)("git switch -c " + branchName)];
-                            case 4:
-                                _b.sent();
-                                return [4 /*yield*/, (0, exec_1.exec)("git add .")];
-                            case 5:
-                                _b.sent();
-                                return [4 /*yield*/, (0, exec_1.exec)("git commit -m \"Upgrade WordPress to " + latestVersion_1 + "\"")];
-                            case 6:
-                                _b.sent();
-                                return [4 /*yield*/, (0, exec_1.exec)("git push -u origin " + branchName + " -f")];
-                            case 7:
-                                _b.sent();
-                                _b.label = 8;
-                            case 8:
-                                _b.trys.push([8, 10, , 11]);
-                                return [4 /*yield*/, octokit.rest.pulls.create(__assign(__assign({}, github_1.context.repo), { title: "Upgrade WordPress to " + latestVersion_1, base: github_1.context.ref, head: "refs/heads/" + branchName }))];
-                            case 9:
-                                _b.sent();
-                                return [3 /*break*/, 11];
-                            case 10:
-                                e_1 = _b.sent();
-                                core.error(e_1.toString());
-                                return [3 /*break*/, 11];
-                            case 11: return [4 /*yield*/, (0, exec_1.exec)("git checkout " + github_1.context.ref)];
-                            case 12:
-                                _b.sent();
-                                _b.label = 13;
-                            case 13: return [2 /*return*/];
+                                _b.label = 4;
+                            case 4: return [2 /*return*/];
                         }
                     });
                 };
                 _i = 0, targets_1 = targets;
-                _a.label = 2;
-            case 2:
-                if (!(_i < targets_1.length)) return [3 /*break*/, 5];
-                target = targets_1[_i];
-                return [5 /*yield**/, _loop_1(target)];
-            case 3:
-                _a.sent();
                 _a.label = 4;
             case 4:
+                if (!(_i < targets_1.length)) return [3 /*break*/, 7];
+                target = targets_1[_i];
+                return [5 /*yield**/, _loop_1(target)];
+            case 5:
+                _a.sent();
+                _a.label = 6;
+            case 6:
                 _i++;
-                return [3 /*break*/, 2];
-            case 5: return [2 /*return*/, Promise.all(tasks)];
+                return [3 /*break*/, 4];
+            case 7: return [2 /*return*/, Promise.all(tasks)];
         }
     });
 }); })().catch(function (e) {
@@ -13698,6 +13681,36 @@ var axios_1 = __importDefault(__nccwpck_require__(6545));
 
 "use strict";
 
+var __assign = (this && this.__assign) || function () {
+    __assign = Object.assign || function(t) {
+        for (var s, i = 1, n = arguments.length; i < n; i++) {
+            s = arguments[i];
+            for (var p in s) if (Object.prototype.hasOwnProperty.call(s, p))
+                t[p] = s[p];
+        }
+        return t;
+    };
+    return __assign.apply(this, arguments);
+};
+var __createBinding = (this && this.__createBinding) || (Object.create ? (function(o, m, k, k2) {
+    if (k2 === undefined) k2 = k;
+    Object.defineProperty(o, k2, { enumerable: true, get: function() { return m[k]; } });
+}) : (function(o, m, k, k2) {
+    if (k2 === undefined) k2 = k;
+    o[k2] = m[k];
+}));
+var __setModuleDefault = (this && this.__setModuleDefault) || (Object.create ? (function(o, v) {
+    Object.defineProperty(o, "default", { enumerable: true, value: v });
+}) : function(o, v) {
+    o["default"] = v;
+});
+var __importStar = (this && this.__importStar) || function (mod) {
+    if (mod && mod.__esModule) return mod;
+    var result = {};
+    if (mod != null) for (var k in mod) if (k !== "default" && Object.prototype.hasOwnProperty.call(mod, k)) __createBinding(result, mod, k);
+    __setModuleDefault(result, mod);
+    return result;
+};
 var __awaiter = (this && this.__awaiter) || function (thisArg, _arguments, P, generator) {
     function adopt(value) { return value instanceof P ? value : new P(function (resolve) { resolve(value); }); }
     return new (P || (P = Promise))(function (resolve, reject) {
@@ -13735,7 +13748,8 @@ var __generator = (this && this.__generator) || function (thisArg, body) {
     }
 };
 Object.defineProperty(exports, "__esModule", ({ value: true }));
-exports.isRepoClean = exports.compareVersions = exports.versionToNumber = void 0;
+exports.createPullByCurrentChanges = exports.isRepoClean = exports.compareVersions = exports.versionToNumber = void 0;
+var core = __importStar(__nccwpck_require__(2186));
 var exec_1 = __nccwpck_require__(1514);
 /**
  * Convert version string to comparable number
@@ -13779,6 +13793,55 @@ function isRepoClean() {
     });
 }
 exports.isRepoClean = isRepoClean;
+function createPullByCurrentChanges(_a) {
+    var branch = _a.branch, message = _a.message, base = _a.base, title = _a.title, context = _a.context, octokit = _a.octokit;
+    return __awaiter(this, void 0, void 0, function () {
+        var e_1;
+        return __generator(this, function (_b) {
+            switch (_b.label) {
+                case 0: 
+                // Create (or overwrite) a new branch
+                return [4 /*yield*/, (0, exec_1.exec)("git switch -C " + branch)
+                    // Commit the changes
+                ];
+                case 1:
+                    // Create (or overwrite) a new branch
+                    _b.sent();
+                    // Commit the changes
+                    return [4 /*yield*/, (0, exec_1.exec)("git add .")];
+                case 2:
+                    // Commit the changes
+                    _b.sent();
+                    return [4 /*yield*/, (0, exec_1.exec)("git commit -m \"" + message.replace('"', '\\"') + "\"")
+                        // Push commits
+                    ];
+                case 3:
+                    _b.sent();
+                    // Push commits
+                    return [4 /*yield*/, (0, exec_1.exec)("git push -u origin " + branch + " -f")
+                        // Create a pull request
+                    ];
+                case 4:
+                    // Push commits
+                    _b.sent();
+                    _b.label = 5;
+                case 5:
+                    _b.trys.push([5, 7, , 8]);
+                    return [4 /*yield*/, octokit.rest.pulls.create(__assign(__assign({}, context.repo), { title: title, base: base, head: "refs/heads/" + branch, body: "[![Created by wp-updater-action](https://img.shields.io/badge/Created%20by-wp--updater--action-orange?style=flat-square)](https://github.com/nandenjin/wp-updater-action)." }))];
+                case 6:
+                    _b.sent();
+                    return [3 /*break*/, 8];
+                case 7:
+                    e_1 = _b.sent();
+                    // If PR already exists, ignore
+                    core.error(e_1.toString());
+                    return [3 /*break*/, 8];
+                case 8: return [2 /*return*/];
+            }
+        });
+    });
+}
+exports.createPullByCurrentChanges = createPullByCurrentChanges;
 
 
 /***/ }),
