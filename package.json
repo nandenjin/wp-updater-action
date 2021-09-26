@@ -14,6 +14,7 @@
     "format": "prettier --write \"**/*.{js,ts,json,md,yml,yaml}\""
   },
   "devDependencies": {
+    "@types/node": "^16.10.1",
     "@typescript-eslint/eslint-plugin": "^4.31.2",
     "@typescript-eslint/parser": "^4.31.2",
     "@vercel/ncc": "^0.31.1",
@@ -27,5 +28,10 @@
   "lint-staged": {
     "*.{ts,js}": "eslint --cache --fix",
     "*.{ts,js,md,yml,yaml,json}": "prettier --write"
+  },
+  "dependencies": {
+    "@actions/core": "^1.5.0",
+    "@actions/exec": "^1.1.0",
+    "axios": "^0.21.4"
   }
 }

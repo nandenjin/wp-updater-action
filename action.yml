@@ -1,10 +1,17 @@
 name: 'Hello World'
 description: 'Greet someone and record the time'
 inputs:
-  who-to-greet: # id of input
-    description: 'Who to greet'
+  targets:
+    description: 'Path of files to check'
     required: true
-    default: 'World'
+  check_core:
+    description: 'Check core updates if true'
+    required: false
+    default: true
+  core_locale:
+    description: 'Filter core by locale'
+    required: false
+    default: null
 outputs:
   time: # id of output
     description: 'The time we greeted you'
