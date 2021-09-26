@@ -1,5 +1,5 @@
-name: 'Hello World'
-description: 'Greet someone and record the time'
+name: 'Wordpress Updater'
+description: 'Update Wordpress download URLs in repo with using GitHub Actions'
 inputs:
   github_token:
     description: 'secrets.GITHUB_TOKEN'
@@ -15,9 +15,6 @@ inputs:
     description: 'Filter core by locale'
     required: false
     default: null
-outputs:
-  time: # id of output
-    description: 'The time we greeted you'
 runs:
   using: 'node12'
   main: 'dist/index.js'
