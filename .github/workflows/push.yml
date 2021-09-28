@@ -34,8 +34,6 @@ jobs:
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v2
-      - name: Build
-        run: yarn run build
       - uses: actions/setup-node@v1
         with:
           node-version: 12.x
@@ -52,3 +50,5 @@ jobs:
             ${{ runner.os }}-yarn-
       - name: Install dependencies
         run: yarn install --frozen-lockfile
+      - name: Build
+        run: yarn run build
