@@ -1,3 +1,13 @@
+# [0.1.0](github.com/nandenjin/wp-update-action/compare/v0.0.1...v0.1.0) (2021-09-28)
+
+### Bug Fixes
+
+- Update action metadata ([dff3126](github.com/nandenjin/wp-update-action/commits/dff3126830b6e64235937ab85489a5b006d90b93))
+
+### Features
+
+- Set GitHub Actions' email and name to Git ([c4c831e](github.com/nandenjin/wp-update-action/commits/c4c831e604669a73da506531801237acf97130aa))
+
 ## [0.0.1](github.com/nandenjin/wp-update-action/compare/v0.0.0...v0.0.1) (2021-09-26)
 
 ### Bug Fixes
