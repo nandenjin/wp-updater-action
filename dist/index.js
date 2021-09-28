@@ -13559,11 +13559,11 @@ var axios_1 = __importDefault(__nccwpck_require__(6545));
                 targets = core.getMultilineInput('targets', { required: true });
                 checkCore = core.getBooleanInput('check_core');
                 // Init git client
-                return [4 /*yield*/, (0, exec_1.exec)("git config --global user.email \"robot@nandenjin.com\"")];
+                return [4 /*yield*/, (0, exec_1.exec)("git config --global user.email \"github-actions[bot]@users.noreply.github.com\"")];
             case 1:
                 // Init git client
                 _a.sent();
-                return [4 /*yield*/, (0, exec_1.exec)("git config --global user.name \"wp-updater-actions\"")];
+                return [4 /*yield*/, (0, exec_1.exec)("git config --global user.name \"github-actions[bot]\"")];
             case 2:
                 _a.sent();
                 tasks = [];
