@@ -58,7 +58,7 @@ export async function createPullByCurrentChanges({
 
   // Commit the changes
   await exec(`git add .`)
-  await exec(`git commit -m "${message.replace('"', '\\"')}"`)
+  await exec(`git commit -m "${message.replace(/"/g, '\\"')}"`)
 
   // Push commits
   await exec(`git push -u origin ${branch} -f`)
