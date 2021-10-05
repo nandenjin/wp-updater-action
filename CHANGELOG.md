@@ -1,3 +1,10 @@
+## [0.1.1](github.com/nandenjin/wp-update-action/compare/v0.1.0...v0.1.1) (2021-10-05)
+
+### Bug Fixes
+
+- Escape backslash ([da2ebe5](github.com/nandenjin/wp-update-action/commits/da2ebe5a8e4958573c8a14e747f2dee0cae3db72))
+- Incomplete escaping ([246e758](github.com/nandenjin/wp-update-action/commits/246e758f098f50c53429fc230cd9852ef9f616c6))
+
 # [0.1.0](github.com/nandenjin/wp-update-action/compare/v0.0.1...v0.1.0) (2021-09-28)
 
 ### Bug Fixes

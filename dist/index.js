@@ -13812,7 +13812,7 @@ function createPullByCurrentChanges(_a) {
                 case 2:
                     // Commit the changes
                     _b.sent();
-                    return [4 /*yield*/, (0, exec_1.exec)("git commit -m \"" + message.replace('"', '\\"') + "\"")
+                    return [4 /*yield*/, (0, exec_1.exec)("git commit -m \"" + message.replace(/[\\"]/g, function (x) { return '\\' + x; }) + "\"")
                         // Push commits
                     ];
                 case 3:
