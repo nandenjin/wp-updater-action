@@ -15,17 +15,17 @@
     "release": "shipjs prepare"
   },
   "devDependencies": {
-    "@types/node": "^16.11.12",
-    "@typescript-eslint/eslint-plugin": "^4.33.0",
-    "@typescript-eslint/parser": "^4.33.0",
-    "@vercel/ncc": "^0.33.0",
-    "eslint": "^7.32.0",
-    "eslint-config-prettier": "^8.3.0",
-    "husky": ">=7",
-    "lint-staged": ">=12",
-    "prettier": "^2.5.1",
+    "@types/node": "16.11.12",
+    "@typescript-eslint/eslint-plugin": "4.33.0",
+    "@typescript-eslint/parser": "4.33.0",
+    "@vercel/ncc": "0.33.0",
+    "eslint": "7.32.0",
+    "eslint-config-prettier": "8.3.0",
+    "husky": "7.0.4",
+    "lint-staged": "12.1.2",
+    "prettier": "2.5.1",
     "shipjs": "0.24.1",
-    "typescript": "^4.5.3"
+    "typescript": "4.5.3"
   },
   "lint-staged": {
     "*.{ts,js}": "eslint --cache --fix",
