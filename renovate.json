@@ -1,5 +1,9 @@
 {
   "extends": [
     "config:base"
-  ]
+  ],
+  "label": ["dependencies"],
+  "automerge": true,
+  "automergeType": "branch",
+  "lockFileMaintenance": { "enabled": true }
 }
