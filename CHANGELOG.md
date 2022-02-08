@@ -1,3 +1,5 @@
+## [0.1.16](github.com/nandenjin/wp-update-action/compare/v0.1.15...v0.1.16) (2022-02-08)
+
 ## [0.1.15](github.com/nandenjin/wp-update-action/compare/v0.1.14...v0.1.15) (2022-02-01)
 
 ## [0.1.14](github.com/nandenjin/wp-update-action/compare/v0.1.13...v0.1.14) (2022-01-25)
