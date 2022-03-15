@@ -2870,7 +2870,7 @@ function _objectWithoutProperties(source, excluded) {
   return target;
 }
 
-const VERSION = "3.5.1";
+const VERSION = "3.6.0";
 
 const _excluded = ["authStrategy"];
 class Octokit {
@@ -5079,7 +5079,7 @@ var zlib = __nccwpck_require__(9796);
 var VERSION = (__nccwpck_require__(4322).version);
 var createError = __nccwpck_require__(5226);
 var enhanceError = __nccwpck_require__(1516);
-var defaults = __nccwpck_require__(8190);
+var transitionalDefaults = __nccwpck_require__(936);
 var Cancel = __nccwpck_require__(8875);
 
 var isHttps = /https:?/;
@@ -5431,7 +5431,7 @@ module.exports = function httpAdapter(config) {
         } else {
           timeoutErrorMessage = 'timeout of ' + config.timeout + 'ms exceeded';
         }
-        var transitional = config.transitional || defaults.transitional;
+        var transitional = config.transitional || transitionalDefaults;
         reject(createError(
           timeoutErrorMessage,
           config,
@@ -5486,7 +5486,7 @@ var buildFullPath = __nccwpck_require__(1934);
 var parseHeaders = __nccwpck_require__(6455);
 var isURLSameOrigin = __nccwpck_require__(3608);
 var createError = __nccwpck_require__(5226);
-var defaults = __nccwpck_require__(8190);
+var transitionalDefaults = __nccwpck_require__(936);
 var Cancel = __nccwpck_require__(8875);
 
 module.exports = function xhrAdapter(config) {
@@ -5601,7 +5601,7 @@ module.exports = function xhrAdapter(config) {
     // Handle timeout
     request.ontimeout = function handleTimeout() {
       var timeoutErrorMessage = config.timeout ? 'timeout of ' + config.timeout + 'ms exceeded' : 'timeout exceeded';
-      var transitional = config.transitional || defaults.transitional;
+      var transitional = config.transitional || transitionalDefaults;
       if (config.timeoutErrorMessage) {
         timeoutErrorMessage = config.timeoutErrorMessage;
       }
@@ -5702,7 +5702,7 @@ var utils = __nccwpck_require__(328);
 var bind = __nccwpck_require__(7065);
 var Axios = __nccwpck_require__(8178);
 var mergeConfig = __nccwpck_require__(4831);
-var defaults = __nccwpck_require__(8190);
+var defaults = __nccwpck_require__(1626);
 
 /**
  * Create an instance of Axios
@@ -6205,7 +6205,7 @@ module.exports = function createError(message, config, code, request, response) 
 var utils = __nccwpck_require__(328);
 var transformData = __nccwpck_require__(9812);
 var isCancel = __nccwpck_require__(4057);
-var defaults = __nccwpck_require__(8190);
+var defaults = __nccwpck_require__(1626);
 var Cancel = __nccwpck_require__(8875);
 
 /**
@@ -6489,7 +6489,7 @@ module.exports = function settle(resolve, reject, response) {
 
 
 var utils = __nccwpck_require__(328);
-var defaults = __nccwpck_require__(8190);
+var defaults = __nccwpck_require__(1626);
 
 /**
  * Transform the data for a request or a response
@@ -6512,7 +6512,7 @@ module.exports = function transformData(data, headers, fns) {
 
 /***/ }),
 
-/***/ 8190:
+/***/ 1626:
 /***/ ((module, __unused_webpack_exports, __nccwpck_require__) => {
 
 "use strict";
@@ -6521,6 +6521,7 @@ module.exports = function transformData(data, headers, fns) {
 var utils = __nccwpck_require__(328);
 var normalizeHeaderName = __nccwpck_require__(6240);
 var enhanceError = __nccwpck_require__(1516);
+var transitionalDefaults = __nccwpck_require__(936);
 
 var DEFAULT_CONTENT_TYPE = {
   'Content-Type': 'application/x-www-form-urlencoded'
@@ -6561,11 +6562,7 @@ function stringifySafely(rawValue, parser, encoder) {
 
 var defaults = {
 
-  transitional: {
-    silentJSONParsing: true,
-    forcedJSONParsing: true,
-    clarifyTimeoutError: false
-  },
+  transitional: transitionalDefaults,
 
   adapter: getDefaultAdapter(),
 
@@ -6654,11 +6651,26 @@ module.exports = defaults;
 
 /***/ }),
 
+/***/ 936:
+/***/ ((module) => {
+
+"use strict";
+
+
+module.exports = {
+  silentJSONParsing: true,
+  forcedJSONParsing: true,
+  clarifyTimeoutError: false
+};
+
+
+/***/ }),
+
 /***/ 4322:
 /***/ ((module) => {
 
 module.exports = {
-  "version": "0.26.0"
+  "version": "0.26.1"
 };
 
 /***/ }),
