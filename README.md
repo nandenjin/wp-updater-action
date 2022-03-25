@@ -5,6 +5,7 @@ Update Wordpress download URLs in repo with using GitHub Actions
 ![Latest version](https://img.shields.io/github/v/tag/nandenjin/wp-updater-action?style=flat-square)
 ![Dependencies status](https://img.shields.io/david/nandenjin/wp-updater-action?style=flat-square)
 ![devDependencies status](https://img.shields.io/david/dev/nandenjin/wp-updater-action?style=flat-square)
+[![Deployed by Ship.js](https://img.shields.io/badge/deploy-🛳%20Ship.js-blue?style=flat-square)](https://github.com/algolia/shipjs)
 
 ## What's this
 
