@@ -21,7 +21,7 @@
     "@vercel/ncc": "0.33.4",
     "eslint": "8.15.0",
     "eslint-config-prettier": "8.5.0",
-    "husky": "8.0.0",
+    "husky": "8.0.1",
     "lint-staged": "12.4.1",
     "prettier": "2.6.2",
     "shipjs": "0.24.4",
