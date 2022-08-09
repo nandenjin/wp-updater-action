@@ -3,6 +3,7 @@
 Update Wordpress download URLs in repo with using GitHub Actions
 
 ![Latest version](https://img.shields.io/github/v/tag/nandenjin/wp-updater-action?style=flat-square)
+[![Maintainability](https://api.codeclimate.com/v1/badges/fdbed9f21cd494df1ba4/maintainability)](https://codeclimate.com/github/nandenjin/wp-updater-action/maintainability)
 [![Deployed by Ship.js](https://img.shields.io/badge/deploy-🛳%20Ship.js-blue?style=flat-square)](https://github.com/algolia/shipjs)
 
 ## What's this
