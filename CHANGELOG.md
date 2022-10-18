@@ -1,3 +1,9 @@
+## [0.1.48](github.com/nandenjin/wp-update-action/compare/v0.1.47...v0.1.48) (2022-10-18)
+
+### Bug Fixes
+
+- **deps:** update dependency axios to v1 ([e659f50](github.com/nandenjin/wp-update-action/commits/e659f5074a8e10e7dd0f6d878598596e82e8affb))
+
 ## [0.1.47](github.com/nandenjin/wp-update-action/compare/v0.1.46...v0.1.47) (2022-10-04)
 
 ## [0.1.46](github.com/nandenjin/wp-update-action/compare/v0.1.45...v0.1.46) (2022-09-27)
