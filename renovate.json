@@ -5,6 +5,5 @@
   "labels": ["dependencies"],
   "automerge": true,
   "automergeType": "branch",
-  "stabilityDays": 7,
   "lockFileMaintenance": { "enabled": true }
 }
