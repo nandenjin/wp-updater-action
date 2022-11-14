@@ -1,3 +1,5 @@
+## [0.1.49](github.com/nandenjin/wp-update-action/compare/v0.1.48...v0.1.49) (2022-11-14)
+
 ## [0.1.48](github.com/nandenjin/wp-update-action/compare/v0.1.47...v0.1.48) (2022-10-18)
 
 ### Bug Fixes
