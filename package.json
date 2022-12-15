@@ -17,6 +17,12 @@
     "format": "prettier --write \"**/*.{js,ts,json,md,yml,yaml}\"",
     "release": "shipjs prepare"
   },
+  "dependencies": {
+    "@actions/core": "^1.6.0",
+    "@actions/exec": "^1.1.0",
+    "@actions/github": "^5.0.0",
+    "axios": "^1.0.0"
+  },
   "devDependencies": {
     "@types/node": "18.11.15",
     "@typescript-eslint/eslint-plugin": "5.46.1",
@@ -33,11 +39,5 @@
   "lint-staged": {
     "*.{ts,js}": "eslint --cache --fix",
     "*.{ts,js,md,yml,yaml,json}": "prettier --write"
-  },
-  "dependencies": {
-    "@actions/core": "^1.6.0",
-    "@actions/exec": "^1.1.0",
-    "@actions/github": "^5.0.0",
-    "axios": "^1.0.0"
   }
 }
