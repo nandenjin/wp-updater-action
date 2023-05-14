@@ -1,6 +1,6 @@
 {
   "name": "@nandenjin/wp-update-action",
-  "version": "0.1.51",
+  "version": "0.1.52",
   "description": "Check updates for wordpress core & plugins",
   "main": "dist/index.js",
   "repository": "github.com/nandenjin/wp-update-action.git",
