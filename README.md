@@ -47,4 +47,4 @@ jobs:
 | :------------: | :---------------------------: | :-------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
 | `github_token` | `${{ secrets.GITHUB_TOKEN }}` | **Required.** Access token for GitHub API.                                                                                                                            |
 |   `targets`    |        `./Dockerfile`         | **Required.** Paths of files to be checked. Multi-line list is allowed.                                                                                               |
-| `core_locale`  |             `ja`              | Optional. Locale of Wordpress. The action adds params to WP API URL like `?locale=ja`. The response can contains versions that are not translated for the locale yet. |
+| `core_locale`  |             `ja`              | Optional. Locale of Wordpress. The action adds params to WP API URL like `?locale=ja`. The response may contains versions that are not translated for the locale yet. |
