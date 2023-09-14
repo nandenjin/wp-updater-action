@@ -8,6 +8,7 @@ on:
 
 jobs:
   lint:
+    if: github.event_name != 'pull_request' || !startsWith(github.head_ref, 'renovate/')
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v3
@@ -21,6 +22,7 @@ jobs:
         run: yarn lint
 
   build:
+    if: github.event_name != 'pull_request' || !startsWith(github.head_ref, 'renovate/')
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v3
