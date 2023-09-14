@@ -54,14 +54,14 @@ export async function createPullByCurrentChanges({
   octokit: ReturnType<typeof getOctokit>
 }): Promise<void> {
   // Create (or overwrite) a new branch
-  await exec(`git switch -C ${branch}`)
+  await exec('git', ['switch', '-C', 'branch'])
 
   // Commit the changes
-  await exec(`git add .`)
-  await exec(`git commit -m "${message.replace(/[\\"]/g, x => '\\' + x)}"`)
+  await exec('git', ['add', '.'])
+  await exec('git', ['commit', `-m="${message.replace(/[\\"]/g, x => '\\' + x)}"`])
 
   // Push commits
-  await exec(`git push -u origin ${branch} -f`)
+  await exec('git', ['push', '-u', 'origin', branch, '-f'])
   // Create a pull request
   try {
     await octokit.rest.pulls.create({
