@@ -34,7 +34,7 @@
     "lint-staged": "14.0.1",
     "prettier": "3.0.3",
     "shipjs": "0.25.0",
-    "typescript": "4.9.4"
+    "typescript": "5.2.2"
   },
   "lint-staged": {
     "*.{ts,js}": "eslint --cache --fix",
