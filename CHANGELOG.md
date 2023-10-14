@@ -1,3 +1,15 @@
+# [0.2.0](github.com/nandenjin/wp-update-action/compare/v0.1.56...v0.2.0) (2023-10-14)
+
+### Bug Fixes
+
+- Compose git commands as array ([#120](null/github.com/nandenjin/wp-update-action/issues/120)) ([dbbc8a3](github.com/nandenjin/wp-update-action/commits/dbbc8a32f52f65cdb463a16a091f394a394aa9b9))
+- **deps:** update dependency @actions/core to v1.10.1 ([e194c89](github.com/nandenjin/wp-update-action/commits/e194c8975a72e7277dce6287a48434dbb591c3a5))
+
+### Features
+
+- Allow engines that is newer than expected ([2b98d7d](github.com/nandenjin/wp-update-action/commits/2b98d7da6d2ec04295f028341aba10cb9015d979))
+- Use Node.js v18 for action runtime ([e3a6296](github.com/nandenjin/wp-update-action/commits/e3a62964b595c37490d14a27d5a25fe0893221c9))
+
 ## [0.1.56](github.com/nandenjin/wp-update-action/compare/v0.1.55...v0.1.56) (2023-09-14)
 
 ## [0.1.55](github.com/nandenjin/wp-update-action/compare/v0.1.54...v0.1.55) (2023-08-14)
