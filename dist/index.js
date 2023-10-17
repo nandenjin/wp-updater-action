@@ -558,7 +558,7 @@ class OidcClient {
                 .catch(error => {
                 throw new Error(`Failed to get ID Token. \n 
         Error Code : ${error.statusCode}\n 
-        Error Message: ${error.result.message}`);
+        Error Message: ${error.message}`);
             });
             const id_token = (_a = res.result) === null || _a === void 0 ? void 0 : _a.value;
             if (!id_token) {
@@ -8143,6 +8143,9 @@ var WriteAfterEndError = createErrorType(
   "write after end"
 );
 
+// istanbul ignore next
+var destroy = Writable.prototype.destroy || noop;
+
 // An HTTP(S) request that can be redirected
 function RedirectableRequest(options, responseCallback) {
   // Initialize the request
@@ -8173,8 +8176,15 @@ function RedirectableRequest(options, responseCallback) {
 RedirectableRequest.prototype = Object.create(Writable.prototype);
 
 RedirectableRequest.prototype.abort = function () {
-  abortRequest(this._currentRequest);
+  destroyRequest(this._currentRequest);
+  this._currentRequest.abort();
   this.emit("abort");
+};
+
+RedirectableRequest.prototype.destroy = function (error) {
+  destroyRequest(this._currentRequest, error);
+  destroy.call(this, error);
+  return this;
 };
 
 // Writes buffered data to the current native request
@@ -8289,6 +8299,7 @@ RedirectableRequest.prototype.setTimeout = function (msecs, callback) {
     self.removeListener("abort", clearTimer);
     self.removeListener("error", clearTimer);
     self.removeListener("response", clearTimer);
+    self.removeListener("close", clearTimer);
     if (callback) {
       self.removeListener("timeout", callback);
     }
@@ -8315,6 +8326,7 @@ RedirectableRequest.prototype.setTimeout = function (msecs, callback) {
   this.on("abort", clearTimer);
   this.on("error", clearTimer);
   this.on("response", clearTimer);
+  this.on("close", clearTimer);
 
   return this;
 };
@@ -8466,7 +8478,7 @@ RedirectableRequest.prototype._processResponse = function (response) {
   }
 
   // The response is a redirect, so abort the current request
-  abortRequest(this._currentRequest);
+  destroyRequest(this._currentRequest);
   // Discard the remainder of the response to avoid waiting for data
   response.destroy();
 
@@ -8695,12 +8707,12 @@ function createErrorType(code, message, baseClass) {
   return CustomError;
 }
 
-function abortRequest(request) {
+function destroyRequest(request, error) {
   for (var event of events) {
     request.removeListener(event, eventHandlers[event]);
   }
   request.on("error", noop);
-  request.abort();
+  request.destroy(error);
 }
 
 function isSubdomain(subdomain, domain) {
@@ -14639,24 +14651,24 @@ function createPullByCurrentChanges(_a) {
             switch (_b.label) {
                 case 0: 
                 // Create (or overwrite) a new branch
-                return [4 /*yield*/, (0, exec_1.exec)("git switch -C ".concat(branch))
+                return [4 /*yield*/, (0, exec_1.exec)('git', ['switch', '-C', 'branch'])
                     // Commit the changes
                 ];
                 case 1:
                     // Create (or overwrite) a new branch
                     _b.sent();
                     // Commit the changes
-                    return [4 /*yield*/, (0, exec_1.exec)("git add .")];
+                    return [4 /*yield*/, (0, exec_1.exec)('git', ['add', '.'])];
                 case 2:
                     // Commit the changes
                     _b.sent();
-                    return [4 /*yield*/, (0, exec_1.exec)("git commit -m \"".concat(message.replace(/[\\"]/g, function (x) { return '\\' + x; }), "\""))
+                    return [4 /*yield*/, (0, exec_1.exec)('git', ['commit', "-m=\"".concat(message.replace(/[\\"]/g, function (x) { return '\\' + x; }), "\"")])
                         // Push commits
                     ];
                 case 3:
                     _b.sent();
                     // Push commits
-                    return [4 /*yield*/, (0, exec_1.exec)("git push -u origin ".concat(branch, " -f"))
+                    return [4 /*yield*/, (0, exec_1.exec)('git', ['push', '-u', 'origin', branch, '-f'])
                         // Create a pull request
                     ];
                 case 4:
