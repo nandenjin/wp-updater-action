@@ -7,7 +7,7 @@
   "author": "Kazumi Inada <hello@nandenjin.com>",
   "license": "MIT",
   "engines": {
-    "node": ">=16"
+    "node": ">=18"
   },
   "scripts": {
     "build": "ncc build src/index.ts --license licenses.txt",
