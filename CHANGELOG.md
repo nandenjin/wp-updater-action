@@ -10,6 +10,14 @@
 - Allow engines that is newer than expected ([2b98d7d](github.com/nandenjin/wp-update-action/commits/2b98d7da6d2ec04295f028341aba10cb9015d979))
 - Use Node.js v18 for action runtime ([e3a6296](github.com/nandenjin/wp-update-action/commits/e3a62964b595c37490d14a27d5a25fe0893221c9))
 
+## [0.2.2](https://github.com/nandenjin/wp-updater-action/compare/v0.2.1...v0.2.2) (2023-10-25)
+
+
+### Bug Fixes
+
+* **deps:** update dependency @actions/github to v6 ([#127](https://github.com/nandenjin/wp-updater-action/issues/127)) ([30d8033](https://github.com/nandenjin/wp-updater-action/commit/30d8033a57d4b3ae7457a04533e29277ac450ab0))
+* FIx name of created branch ([#129](https://github.com/nandenjin/wp-updater-action/issues/129)) ([255bd71](https://github.com/nandenjin/wp-updater-action/commit/255bd71ab1b0b903fec599d4975da776b5073757))
+
 ## [0.2.1](https://github.com/nandenjin/wp-updater-action/compare/v0.2.0...v0.2.1) (2023-10-25)
 
 
