@@ -19,7 +19,7 @@ jobs:
           release-type: node
           package-name: "@nandenjin/wp-update-action"
           command: github-release
-      - uses: actions/checkout@v2
+      - uses: actions/checkout@v4
       - name: tag major and minor versions
         if: ${{ steps.release.outputs.release_created }}
         run: |
