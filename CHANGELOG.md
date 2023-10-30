@@ -10,6 +10,17 @@
 - Allow engines that is newer than expected ([2b98d7d](github.com/nandenjin/wp-update-action/commits/2b98d7da6d2ec04295f028341aba10cb9015d979))
 - Use Node.js v18 for action runtime ([e3a6296](github.com/nandenjin/wp-update-action/commits/e3a62964b595c37490d14a27d5a25fe0893221c9))
 
+## [1.0.0](https://github.com/nandenjin/wp-updater-action/compare/v0.2.2...v1.0.0) (2023-10-30)
+
+
+### ⚠ BREAKING CHANGES
+
+* Drop Node.js v16 ([#131](https://github.com/nandenjin/wp-updater-action/issues/131))
+
+### Features
+
+* Drop Node.js v16 ([#131](https://github.com/nandenjin/wp-updater-action/issues/131)) ([68eed35](https://github.com/nandenjin/wp-updater-action/commit/68eed357466b9ec07d42c3ffad9b0cd8fed71409))
+
 ## [0.2.2](https://github.com/nandenjin/wp-updater-action/compare/v0.2.1...v0.2.2) (2023-10-25)
 
 
