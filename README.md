@@ -3,7 +3,8 @@
 Update Wordpress download URLs in repo with using GitHub Actions
 
 ![Latest version](https://img.shields.io/github/v/tag/nandenjin/wp-updater-action?style=flat-square)
-[![Maintainability](https://api.codeclimate.com/v1/badges/fdbed9f21cd494df1ba4/maintainability)](https://codeclimate.com/github/nandenjin/wp-updater-action/maintainability)
+![Maintainability](https://img.shields.io/codeclimate/maintainability/nandenjin/wp-updater-action?style=flat-square&logo=codeclimate)
+
 
 ## What's this
 
@@ -27,10 +28,10 @@ jobs:
     runs-on: ubuntu-latest
     steps:
       # Checkout target code
-      - uses: actions/checkout@v2
+      - uses: actions/checkout@v4
 
       # Call wp-updater-action
-      - uses: nandenjin/wp-updater-action@v0
+      - uses: nandenjin/wp-updater-action@v1
         with:
           # Give token to create PRs
           github_token: ${{ secrets.GITHUB_TOKEN }}
