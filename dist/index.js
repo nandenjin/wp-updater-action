@@ -34501,7 +34501,8 @@ function createPullByCurrentChanges(_a) {
                     _b.sent();
                     return [4 /*yield*/, (0, exec_1.exec)('git', [
                             'commit',
-                            "-m=\"".concat(message.replace(/[\\"]/g, function (x) { return '\\' + x; }), "\""),
+                            '-m',
+                            message.replace(/[\\"]/g, function (x) { return '\\' + x; }),
                         ])
                         // Push commits
                     ];
@@ -34517,7 +34518,7 @@ function createPullByCurrentChanges(_a) {
                     _b.label = 5;
                 case 5:
                     _b.trys.push([5, 7, , 8]);
-                    return [4 /*yield*/, octokit.rest.pulls.create(__assign(__assign({}, context.repo), { title: title, base: base, head: "refs/heads/".concat(branch), body: "[![Created by wp-updater-action](https://img.shields.io/badge/Created%20by-wp--updater--action-orange?style=flat-square)](https://github.com/nandenjin/wp-updater-action)." }))];
+                    return [4 /*yield*/, octokit.rest.pulls.create(__assign(__assign({}, context.repo), { title: title, base: base, head: "refs/heads/".concat(branch), body: "[![Created by wp-updater-action](https://img.shields.io/badge/Created%20by-wp--updater--action-orange?style=flat-square)](https://github.com/nandenjin/wp-updater-action)" }))];
                 case 6:
                     _b.sent();
                     return [3 /*break*/, 8];
