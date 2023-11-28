@@ -60,7 +60,8 @@ export async function createPullByCurrentChanges({
   await exec('git', ['add', '.'])
   await exec('git', [
     'commit',
-    `-m="${message.replace(/[\\"]/g, x => '\\' + x)}"`,
+    '-m',
+    message.replace(/[\\"]/g, x => '\\' + x),
   ])
 
   // Push commits
@@ -72,7 +73,7 @@ export async function createPullByCurrentChanges({
       title,
       base,
       head: `refs/heads/${branch}`,
-      body: `[![Created by wp-updater-action](https://img.shields.io/badge/Created%20by-wp--updater--action-orange?style=flat-square)](https://github.com/nandenjin/wp-updater-action).`,
+      body: `[![Created by wp-updater-action](https://img.shields.io/badge/Created%20by-wp--updater--action-orange?style=flat-square)](https://github.com/nandenjin/wp-updater-action)`,
     })
   } catch (e) {
     // If PR already exists, ignore
