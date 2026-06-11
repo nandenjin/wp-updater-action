@@ -30,7 +30,7 @@ jobs:
     needs: [release-please]
     if: ${{ needs.release-please.outputs.pr }}
     steps:
-      - uses: actions/checkout@v4
+      - uses: actions/checkout@v6
         with:
           ref: ${{ fromJson(needs.release-please.outputs.pr).headBranchName }}
       - uses: actions/setup-node@v4
@@ -54,7 +54,7 @@ jobs:
     needs: [release-please]
     if: ${{ needs.release-please.outputs.release_created }}
     steps:
-      - uses: actions/checkout@v4
+      - uses: actions/checkout@v6
       - name: tag major and minor versions
         run: |
           git config user.name github-actions[bot]
