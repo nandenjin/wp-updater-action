@@ -320,10 +320,10 @@
   resolved "https://registry.yarnpkg.com/@ungap/structured-clone/-/structured-clone-1.3.2.tgz#a03ad82cd5676414d068ba86f880c5681194aadf"
   integrity sha512-5jsZFwgR5rTdKwidH9Qmat75RKwqfpKlWWB1frDkljN127mwqBu8K0PYo7/hFpF03IEJpfVPpCQDY/eDx3iHvA==
 
-"@vercel/ncc@0.44.0":
-  version "0.44.0"
-  resolved "https://registry.yarnpkg.com/@vercel/ncc/-/ncc-0.44.0.tgz#636984de122de042dc9c2b8ac571237f64958e37"
-  integrity sha512-pHyI+bZokSgIscTKFSmpNk5vZzmOrb9RW0Vu4SRyqUvkJ0kgg3PzaZLLDVTFXhbUiCqg0/Eu8L4fKtgViA92kg==
+"@vercel/ncc@0.44.1":
+  version "0.44.1"
+  resolved "https://registry.yarnpkg.com/@vercel/ncc/-/ncc-0.44.1.tgz#5becc6500a1494e5b9786150da6374d0b2d7671d"
+  integrity sha512-cUjIE5P2YY1n+Kt9rFIazMMpGoPn1Fic04rOmTkElMkiDP5oszGfERMpo2shVkFKDL7rVppdM2pqJKC59shQWQ==
 
 acorn-jsx@^5.3.2:
   version "5.3.2"
