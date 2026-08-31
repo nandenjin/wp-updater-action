@@ -10,6 +10,14 @@
 - Allow engines that is newer than expected ([2b98d7d](github.com/nandenjin/wp-update-action/commits/2b98d7da6d2ec04295f028341aba10cb9015d979))
 - Use Node.js v18 for action runtime ([e3a6296](github.com/nandenjin/wp-update-action/commits/e3a62964b595c37490d14a27d5a25fe0893221c9))
 
+## [1.0.6](https://github.com/nandenjin/wp-updater-action/compare/v1.0.5...v1.0.6) (2026-08-31)
+
+
+### Bug Fixes
+
+* **deps:** update dependency axios to v1.11.0 [security] ([152466c](https://github.com/nandenjin/wp-updater-action/commit/152466cee53183b23795073717823afba1a95b9c))
+* **deps:** update dependency axios to v1.12.0 [security] ([aac6d90](https://github.com/nandenjin/wp-updater-action/commit/aac6d904d9aff97bedef9064de0fe9bc11a3693c))
+
 ## [1.0.5](https://github.com/nandenjin/wp-updater-action/compare/v1.0.4...v1.0.5) (2025-06-12)
 
 
